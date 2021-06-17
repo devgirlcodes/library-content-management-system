@@ -39,7 +39,7 @@ class Member(models.Model):
     si = models.PositiveIntegerField(unique= True, verbose_name="SI Number", null=True, blank=True)
     admission = models.PositiveIntegerField(unique=True, verbose_name="Admission Number", null=True, blank=True)
     employee = models.PositiveIntegerField(unique=True, verbose_name="Employee ID", null=True, blank=True)
-    name = models.CharField(max_length=30)
+    member_name = models.CharField(max_length=30)
     date_of_entry = models.DateField(default=date.today, verbose_name="Date of Entry")
     department = models.ForeignKey(Department, on_delete=models.PROTECT, blank=True, null=True)
     section = models.ForeignKey(Section, on_delete=models.PROTECT, blank=True, null=True)
@@ -48,16 +48,12 @@ class Member(models.Model):
     phone = models.CharField(null=False, validators=[RegexValidator(r'\+?\d[\d -]{8,12}\d')], max_length=13, verbose_name="Phone No.")
     address = models.CharField(max_length=200, null=True, blank=True)
     email = models.EmailField(null=True, blank=True, help_text="abc@xyz.com")
-    books_in_hand = models.PositiveSmallIntegerField(default=0, blank=True, null=True, verbose_name="Books in Hand")
-    books_issued = models.PositiveSmallIntegerField(default=0, blank=True, null=True, verbose_name="Books Issued")
-    textbooks_in_hand = models.PositiveSmallIntegerField(default=0, blank=True, null=True, verbose_name="Textbooks in Hand")
-    magazines_in_hand = models.PositiveSmallIntegerField(default=0, blank=True, null=True, verbose_name="Magazines in Hand")
-    late = models.PositiveSmallIntegerField(default=0, blank=True, null=True, verbose_name="Late Returns")
     remarks = models.CharField(max_length=200, default="NIL", verbose_name="Remarks", null=True)
 
     class Meta:
         verbose_name = "Member"
+        ordering = ['date_of_entry']
 
     def __str__(self):
         """String for representing model object"""
-        return self.name
+        return self.member_name
