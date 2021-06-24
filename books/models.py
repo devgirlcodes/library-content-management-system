@@ -23,6 +23,12 @@ class Language(models.Model):
     def __str__(self):
         return self.lang_name
 
+class Publisher(models.Model):
+    publisher_name = models.CharField(max_length=200, verbose_name='Publisher')
+
+    def __str__(self):
+        return self.publisher_name
+
 class AddNewBook(models.Model):
     accession = models.PositiveIntegerField(unique=True, verbose_name='Accession ID')
     date_of_entry = models.DateField(default=date.today,  verbose_name='Date of Entry')
@@ -30,8 +36,8 @@ class AddNewBook(models.Model):
     alternate_title = models.CharField(max_length=200, verbose_name='Alternate Title')
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
-    publisher = models.CharField(max_length=200, verbose_name='Publisher')
     language = models.ForeignKey('Language',on_delete=models.SET_NULL, null=True)
+    publisher = models.ForeignKey('Publisher',on_delete=models.SET_NULL, null=True)
 
     class Meta:
         verbose_name='New Book'
