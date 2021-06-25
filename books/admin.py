@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Genre, Author, AddNewBook, Language, BookTransaction
+from .models import Genre, Author, AddNewBook, Language, BookTransaction, Publisher
 
 
 class GenreAdmin(admin.ModelAdmin):
@@ -90,3 +90,4 @@ admin.site.register(AddNewBook, AddNewBookAdmin)
 admin.site.register(Author,AuthorAdmin)
 admin.site.register(BookTransaction,BookTrasanctionAdmin)
 admin.site.register(Language)
+admin.site.register(Publisher)
