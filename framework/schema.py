@@ -1,4 +1,6 @@
 import graphene
+from magazines.query import Query as magazineQuery
+from magazines.mutation import Mutation
 from graphene_django import DjangoObjectType
 from books.models import Author, Genre, AddNewBook, BookTransaction, Member
 from members.models import Member
@@ -28,7 +30,7 @@ class MemberType(DjangoObjectType):
         model = Member
         fields = '__all__'
 
-class Query(graphene.ObjectType):
+class Query(magazineQuery, graphene.ObjectType):
     all_books = graphene.List(BookType)
     all_authors = graphene.List(AuthorType)
     all_genres = graphene.List(GenreType)
@@ -68,5 +70,5 @@ class Query(graphene.ObjectType):
         except Member.DoesNotExist:
             return Exception('Member doesn\'t exist')
 
-schema = graphene.Schema(query=Query)
 
+schema = graphene.Schema(query=Query, mutation=Mutation)

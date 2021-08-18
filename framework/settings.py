@@ -127,4 +127,3 @@ STATIC_URL = '/static/'
 GRAPHENE = {
     "SCHEMA": "framework.schema.schema"
 }
-
